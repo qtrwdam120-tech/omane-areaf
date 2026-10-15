@@ -23,10 +23,13 @@ const PRODUCT = {
   price: 50,
   title: "عرض الوطنية بـ 50 ريال",
   short: "دجاج طازج، صدور دجاج، وأرز بسمتي فاخر",
-  image: "/assets/offer-snap-720.jpg",
-  imageSmall: "/assets/offer-snap-420.jpg",
-  thumb: "/assets/offer-snap-thumb.jpg",
+  image: "/assets/offer-box-800.png",
+  imageSmall: "/assets/offer-box-540.png",
+  thumb: "/assets/offer-box-thumb.png",
   imageAlt: "إعلان عرض الوطنية: بوكس دجاج وصدور دجاج وأرز بسمتي بـ 50 ريال",
+  imageW: 800,
+  imageH: 1422,
+  tall: true,
   items: [
     { title: "بوكس دجاج", note: "10 حبات، وزن الحبة 900 غرام" },
     { title: "بوكس صدور دجاج", note: "وزن الصحن 500 غرام" },
@@ -92,14 +95,14 @@ const icons = {
 
 const brandMark = `<span class="brand-mark" aria-hidden="true">${icons.leaf}</span>`;
 
-const productImg = (cls, loading) => `
+const productImg = (cls, loading, sizes) => `
   <img
     class="${cls || ""}"
     src="${PRODUCT.image}"
-    srcset="${PRODUCT.imageSmall} 420w, ${PRODUCT.image} 720w"
-    sizes="(max-width: 640px) 92vw, (max-width: 1024px) 70vw, 46vw"
+    srcset="${PRODUCT.imageSmall} 540w, ${PRODUCT.image} 800w"
+    sizes="${sizes || "(max-width: 640px) 92vw, (max-width: 1024px) 70vw, 46vw"}"
     alt="${PRODUCT.imageAlt}"
-    width="720" height="720"
+    width="${PRODUCT.imageW}" height="${PRODUCT.imageH}"
     loading="${loading || "lazy"}"
     decoding="async"
     fetchpriority="${loading === "eager" ? "high" : "auto"}"
@@ -213,8 +216,7 @@ function homeView() {
         </div>
         <div class="hero-art reveal" data-delay="120">
           <div class="hero-media">
-            ${productImg("", "eager")}
-            <span class="badge badge-price">50 <small>ريال</small></span>
+            ${productImg("", "eager", "(max-width: 1024px) 92vw, 400px")}
           </div>
           <div class="price-card">
             <div class="price-now">
@@ -388,7 +390,7 @@ function cartView() {
         <div class="surface cart-summary">
           <h2>عرضك في السلة</h2>
           <div class="cart-product">
-            <img src="${PRODUCT.thumb}" alt="بوكس عرض ${SITE.brand}" width="240" height="240" loading="lazy" decoding="async" />
+            <img src="${PRODUCT.thumb}" alt="بوكس عرض ${SITE.brand}" width="270" height="480" loading="lazy" decoding="async" />
             <div>
               <h3>${PRODUCT.title}</h3>
               <p>${PRODUCT.short}</p>
