@@ -1,12 +1,32 @@
-// دواجن الوطنية — واجهة المتجر
+// واجهة المتجر
+import { LEGAL_LINKS, buildLegal } from "./legal.js";
+
+/* ---------------------------------------------------------------------------
+   إعدادات النشاط — عدّل هذا القسم فقط.
+   هذه البيانات تظهر في التذييل وصفحات السياسات، وهي مطلوبة نظاماً.
+--------------------------------------------------------------------------- */
+const SITE = {
+  brand: "الوطنية",
+  legalName: "مؤسسة الوطنية",
+  city: "الرياض",
+  phone: "+966593203502",
+  whatsapp: "966593203502",
+  email: "info@example.com",
+  cr: "1025148421",
+  vat: "",
+  address: "الرياض، المملكة العربية السعودية",
+  deliveryTime: "١ إلى ٣ أيام عمل",
+  updated: "أكتوبر ٢٠٢٦",
+};
+
 const PRODUCT = {
   price: 50,
-  title: "عرض دواجن الوطنية بـ 50 ريال",
+  title: "عرض الوطنية بـ 50 ريال",
   short: "دجاج طازج، صدور دجاج، وأرز بسمتي فاخر",
-  image: "/assets/product-box-720.jpg",
-  imageSmall: "/assets/product-box-420.jpg",
-  thumb: "/assets/product-thumb.jpg",
-  imageAlt: "بوكس دواجن الوطنية مع الدجاج الطازج والأرز البسمتي الفاخر",
+  image: "/assets/offer-snap-720.jpg",
+  imageSmall: "/assets/offer-snap-420.jpg",
+  thumb: "/assets/offer-snap-thumb.jpg",
+  imageAlt: "إعلان عرض الوطنية: بوكس دجاج وصدور دجاج وأرز بسمتي بـ 50 ريال",
   items: [
     { title: "بوكس دجاج", note: "10 حبات، وزن الحبة 900 غرام" },
     { title: "بوكس صدور دجاج", note: "وزن الصحن 500 غرام" },
@@ -14,9 +34,11 @@ const PRODUCT = {
   ],
 };
 
+const LEGAL = buildLegal(SITE);
+
 const KEYS = {
-  cart: "aryaf-cart",
-  address: "national-poultry-sa-address",
+  cart: "national-poultry-cart",
+  address: "national-poultry-address",
 };
 const EMPTY_ADDRESS = { name: "", phone: "", city: "", details: "" };
 const AR_DIGITS = "٠١٢٣٤٥٦٧٨٩";
@@ -77,7 +99,7 @@ const productImg = (cls, loading) => `
     srcset="${PRODUCT.imageSmall} 420w, ${PRODUCT.image} 720w"
     sizes="(max-width: 640px) 92vw, (max-width: 1024px) 70vw, 46vw"
     alt="${PRODUCT.imageAlt}"
-    width="720" height="1080"
+    width="720" height="720"
     loading="${loading || "lazy"}"
     decoding="async"
     fetchpriority="${loading === "eager" ? "high" : "auto"}"
@@ -103,14 +125,15 @@ function header() {
         <a class="brand" href="/" data-link aria-label="العودة إلى العرض">
           ${brandMark}
           <span class="brand-text">
-            <span class="brand-name">دواجن الوطنية</span>
-            <span class="brand-sub">المملكة العربية السعودية</span>
+            <span class="brand-name">${SITE.brand}</span>
+            <span class="brand-sub">${SITE.city} · المملكة العربية السعودية</span>
           </span>
         </a>
         <nav class="main-nav" aria-label="روابط الصفحة">
           <a href="/" data-link>العرض</a>
           <a href="/#contents">المحتويات</a>
-          <a href="/#how">التوصيل</a>
+          <a href="/#how">طريقة الطلب</a>
+          <a href="/shipping" data-link>التوصيل</a>
         </nav>
         <div class="header-actions">
           <a class="cart-btn" href="/cart" data-link aria-label="السلة">
@@ -140,12 +163,25 @@ function footer() {
         <div class="footer-brand">
           ${brandMark}
           <div>
-            <strong>دواجن الوطنية</strong>
-            <span>المملكة العربية السعودية</span>
+            <strong>${SITE.brand}</strong>
+            <span>${SITE.city} · المملكة العربية السعودية</span>
           </div>
         </div>
         <div class="footer-notes">
+          <span>${icons.phone} <span dir="ltr">${SITE.phone}</span></span>
+          <span>${icons.pin} ${SITE.address}</span>
         </div>
+      </div>
+      <div class="container footer-legal">
+        <nav aria-label="صفحات السياسات">
+          ${LEGAL_LINKS.map((l) => `<a href="${l.href}" data-link>${l.label}</a>`).join("")}
+        </nav>
+        <p class="footer-meta">
+          السجل التجاري: <span dir="ltr">${SITE.cr}</span>${SITE.vat ? ` · الرقم الضريبي: <span dir="ltr">${SITE.vat}</span>` : ""}
+        </p>
+        <p class="footer-disclaimer">
+          نحن نشاط تجاري مستقل ولا نتبع أي شركة أخرى ولا نمثلها. وأسماء العلامات المذكورة تخص أصحابها.
+        </p>
       </div>
     </footer>`;
 }
@@ -155,12 +191,13 @@ function homeView() {
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy reveal">
-          <span class="eyebrow">${icons.spark} عرض مميز من دواجن الوطنية</span>
-          <h1>عرض دواجن الوطنية بـ <span class="ink">50 ريالا</span></h1>
-          <p class="hero-intro">تجميعة البيت التي تحبونها،   .</p>
+          <span class="eyebrow">${icons.spark} عرض مميز من ${SITE.brand}</span>
+          <h1>عرض ${SITE.brand} بـ <span class="ink">50 ريالا</span></h1>
+          <p class="hero-intro">تجميعة البيت التي تحبونها: دجاج طازج وصدور دجاج وأرز بسمتي فاخر، بسعر واحد شامل.</p>
           <ul class="hero-points">
             <li>${icons.check} دجاج طازج وصدور دجاج</li>
             <li>${icons.check} أرز بسمتي فاخر</li>
+            <li>${icons.check} توصيل مجاني داخل ${SITE.city}</li>
           </ul>
           <div class="hero-actions">
             <button class="btn btn-primary" type="button" data-add>
@@ -169,6 +206,9 @@ function homeView() {
             <a class="btn btn-ghost" href="/cart" data-link>عرض السلة</a>
           </div>
           <div class="hero-trust">
+            <span class="free-pill">${icons.truck} توصيل مجاني</span>
+            <span class="free-pill">${icons.clock} الوصول خلال ${SITE.deliveryTime}</span>
+            <span class="free-pill">${icons.shield} منتجات مطابقة للمواصفات</span>
           </div>
         </div>
         <div class="hero-art reveal" data-delay="120">
@@ -201,12 +241,18 @@ function homeView() {
         </div>
         <div class="feature reveal" data-delay="80">
           <span class="feature-icon">${icons.truck}</span>
+          <h3>توصيل مجاني</h3>
+          <p>نجهز الطلب ونوصله إلى باب بيتك دون رسوم إضافية.</p>
         </div>
         <div class="feature reveal" data-delay="160">
           <span class="feature-icon">${icons.shield}</span>
+          <h3>جودة مضمونة</h3>
+          <p>منتجات مطابقة للمواصفات، وإن وصلك خلل نستبدله أو نعيد المبلغ.</p>
         </div>
         <div class="feature reveal" data-delay="240">
           <span class="feature-icon">${icons.clock}</span>
+          <h3>وصول سريع</h3>
+          <p>يصلك الطلب خلال ${SITE.deliveryTime} من تأكيده.</p>
         </div>
       </div>
     </section>
@@ -263,7 +309,13 @@ function homeView() {
           </li>
           <li class="reveal" data-delay="180">
             <span class="step-number">${n(3)}</span>
+            <h3>تأكيد الطلب</h3>
+            <p>نرسل لك تأكيداً عبر واتساب للتحقق من العنوان والموعد قبل التوصيل.</p>
+          </li>
+          <li class="reveal" data-delay="270">
+            <span class="step-number">${n(4)}</span>
             <h3>استلم في البيت</h3>
+            <p>يصلك الطلب خلال ${SITE.deliveryTime} بعد التأكيد.</p>
           </li>
         </ol>
       </div>
@@ -273,6 +325,7 @@ function homeView() {
       <div class="container closing-inner reveal">
         <div>
           <h2>الكمية محدودة، اطلب الآن واستفيد من العرض.</h2>
+          <p>التوصيل مجاني داخل ${SITE.city}، والوصول خلال ${SITE.deliveryTime}.</p>
         </div>
         <button class="btn btn-light" type="button" data-add>
           أضف العرض إلى السلة ${icons.arrow}
@@ -292,7 +345,7 @@ function cartView() {
         </div>
         <div class="surface empty-cart">
           <span class="empty-icon">${icons.cart}</span>
-          <h2>السلة تنتظر عرض دواجن الوطنية</h2>
+          <h2>السلة تنتظر عرض ${SITE.brand}</h2>
           <p>لم تضف العرض إلى السلة بعد. اكتشف محتويات البوكس واطلبه الآن.</p>
           <a class="btn btn-primary" href="/" data-link>العودة إلى العرض ${icons.arrow}</a>
         </div>
@@ -309,12 +362,13 @@ function cartView() {
         </div>
         <div class="surface confirmation" role="status" aria-live="polite">
           <span class="confirmation-icon">${icons.check}</span>
-          <span class="section-kicker">دواجن الوطنية · المملكة العربية السعودية</span>
-          <h2>تم قبول طلبك</h2>
-          <p class="delivery-estimate">${icons.truck} وهو قيد التوصيل للمنزل خلال 1 يوم عمل.</p>
-          <p class="confirmation-order">عرض دواجن الوطنية — ${money(PRODUCT.price * state.count)}، والتوصيل مجانا.</p>
-          <p class="confirmation-disclaimer">تنبيه: هذه رسالة تأكيد على الصفحة فقط؛ لم يُرسل الطلب إلى المتجر بعد.</p>
-          <a class="btn btn-primary" href="/" data-link>العودة إلى الصفحة الرئيسية ${icons.arrow}</a>
+          <span class="section-kicker">${SITE.brand} · ${SITE.city}</span>
+          <h2>طلبك جاهز للإرسال</h2>
+          <p class="delivery-estimate">${icons.truck} اضغط زر واتساب لإرسال الطلب إلينا. بعد استلامنا له نؤكده لك ونحدد موعد التوصيل خلال ${SITE.deliveryTime}.</p>
+          <p class="confirmation-order">عرض ${SITE.brand} — ${money(PRODUCT.price * state.count)}، والتوصيل مجانا.</p>
+          <a class="btn btn-primary" href="${whatsappOrderLink()}" target="_blank" rel="noopener">${icons.phone} إرسال الطلب على واتساب</a>
+          <p class="confirmation-disclaimer">لم يصلنا طلبك بعد. يصل إلينا بعد إرساله على واتساب، أو يمكنك الاتصال بنا على <span dir="ltr">${SITE.phone}</span>.</p>
+          <a class="btn btn-ghost" href="/" data-link>العودة إلى الصفحة الرئيسية ${icons.arrow}</a>
         </div>
       </section>`;
   }
@@ -334,7 +388,7 @@ function cartView() {
         <div class="surface cart-summary">
           <h2>عرضك في السلة</h2>
           <div class="cart-product">
-            <img src="${PRODUCT.thumb}" alt="بوكس دواجن الوطنية" width="240" height="240" loading="lazy" decoding="async" />
+            <img src="${PRODUCT.thumb}" alt="بوكس عرض ${SITE.brand}" width="240" height="240" loading="lazy" decoding="async" />
             <div>
               <h3>${PRODUCT.title}</h3>
               <p>${PRODUCT.short}</p>
@@ -377,9 +431,38 @@ function cartView() {
               </label>
             </div>
             ${state.error ? `<p class="form-error" role="alert">${state.error}</p>` : ""}
-            <button class="btn btn-primary btn-block submit-order" type="submit">${icons.check} إرسال الطلب</button>
+            <button class="btn btn-primary btn-block submit-order" type="submit">${icons.check} متابعة الطلب</button>
+            <p class="form-note">بإرسال الطلب أنت توافق على <a href="/terms" data-link>الشروط والأحكام</a> و<a href="/privacy" data-link>سياسة الخصوصية</a>.</p>
           </form>
         </div>
+      </div>
+    </section>`;
+}
+
+function legalView(route) {
+  const page = LEGAL[route];
+  if (!page) return notFoundView();
+  return `
+    <section class="container page legal-page">
+      <div class="cart-head">
+        <span class="section-kicker">${SITE.brand}</span>
+        <h1>${page.title}</h1>
+        <p>${page.intro}</p>
+      </div>
+      <div class="surface legal-body">
+        ${page.body}
+        <p class="legal-updated">آخر تحديث: ${SITE.updated || "٢٠٢٦"}</p>
+      </div>
+    </section>`;
+}
+
+function notFoundView() {
+  return `
+    <section class="container page">
+      <div class="surface empty-cart">
+        <h2>الصفحة غير موجودة</h2>
+        <p>الرابط الذي طلبته غير متاح.</p>
+        <a class="btn btn-primary" href="/" data-link>العودة إلى العرض ${icons.arrow}</a>
       </div>
     </section>`;
 }
@@ -452,10 +535,20 @@ function bindCartView() {
 
 function renderRoute() {
   renderHeader();
-  const isCart = state.location.startsWith("/cart");
-  const view = isCart ? cartView() : homeView();
+  const path = state.location.replace(/\/+$/, "") || "/";
+  const isCart = path.startsWith("/cart");
+  const isLegal = Boolean(LEGAL[path]);
+  const isKnown = path === "/" || isCart || isLegal;
+  const view = isCart
+    ? cartView()
+    : isLegal
+      ? legalView(path)
+      : path === "/"
+        ? homeView()
+        : notFoundView();
   const shell = root.querySelector(".app-shell");
   shell.classList.toggle("is-cart", isCart);
+  shell.classList.toggle("is-plain", isLegal || !isKnown);
   const main = shell.querySelector("main");
   main.innerHTML = view;
   main.className = isCart ? "page-wrap cart-page" : "page-wrap";
@@ -502,6 +595,22 @@ function normalizePhone(input) {
     .replace(/\D/g, "");
 }
 
+function whatsappOrderLink() {
+  const { address } = state;
+  const subtotal = money(PRODUCT.price * state.count);
+  const lines = [
+    `طلب جديد من موقع ${SITE.brand}`,
+    `العرض: ${PRODUCT.title}`,
+    `الكمية: ${n(state.count)}`,
+    `الإجمالي: ${subtotal} (التوصيل مجانا)`,
+    address.name ? `الاسم: ${address.name}` : "",
+    `الجوال: ${address.phone}`,
+    address.city ? `المدينة: ${address.city}` : "",
+    `العنوان: ${address.details}`,
+  ].filter(Boolean);
+  return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`;
+}
+
 function submitOrder() {
   if (!state.count) {
     state.error = "السلة فارغة. أضف العرض أولاً لإكمال البيانات.";
@@ -531,7 +640,7 @@ function boot() {
   const storedCart = readStore(KEYS.cart, { count: 0 });
   state.count = Number(storedCart.count) || 0;
   state.address = readStore(KEYS.address, { ...EMPTY_ADDRESS });
-  state.location = window.location.pathname.startsWith("/cart") ? "/cart" : "/";
+  state.location = window.location.pathname;
 
   buildShell();
   renderRoute();
@@ -559,7 +668,7 @@ function boot() {
   });
 
   window.addEventListener("popstate", () => {
-    state.location = window.location.pathname.startsWith("/cart") ? "/cart" : "/";
+    state.location = window.location.pathname;
     state.submitted = false;
     renderRoute();
   });
