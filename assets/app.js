@@ -9,13 +9,7 @@ const SITE = {
   brand: "الوطنية",
   legalName: "مؤسسة الوطنية",
   city: "الرياض",
-  phone: "+966593203502",
-  whatsapp: "966593203502",
-  email: "watneyanewofold@gmail.com",
-  cr: "1025148421",
   vat: "",
-  address: "الرياض، المملكة العربية السعودية",
-  deliveryTime: "١ إلى ٣ أيام عمل",
   updated: "أكتوبر ٢٠٢٦",
 };
 
@@ -41,7 +35,6 @@ const LEGAL = buildLegal(SITE);
 
 const KEYS = {
   cart: "national-poultry-cart",
-  address: "national-poultry-address",
 };
 const EMPTY_ADDRESS = { name: "", phone: "", city: "", details: "" };
 const AR_DIGITS = "٠١٢٣٤٥٦٧٨٩";
@@ -170,18 +163,11 @@ function footer() {
             <span>${SITE.city} · المملكة العربية السعودية</span>
           </div>
         </div>
-        <div class="footer-notes">
-          <span>${icons.phone} <span dir="ltr">${SITE.phone}</span></span>
-          <span>${icons.pin} ${SITE.address}</span>
-        </div>
       </div>
       <div class="container footer-legal">
         <nav aria-label="صفحات السياسات">
           ${LEGAL_LINKS.map((l) => `<a href="${l.href}" data-link>${l.label}</a>`).join("")}
         </nav>
-        <p class="footer-meta">
-          السجل التجاري: <span dir="ltr">${SITE.cr}</span>${SITE.vat ? ` · الرقم الضريبي: <span dir="ltr">${SITE.vat}</span>` : ""}
-        </p>
         <p class="footer-disclaimer">
           نحن نشاط تجاري مستقل ولا نتبع أي شركة أخرى ولا نمثلها. وأسماء العلامات المذكورة تخص أصحابها.
         </p>
@@ -200,7 +186,6 @@ function homeView() {
           <ul class="hero-points">
             <li>${icons.check} دجاج طازج وصدور دجاج</li>
             <li>${icons.check} أرز بسمتي فاخر</li>
-            <li>${icons.check} توصيل مجاني داخل ${SITE.city}</li>
           </ul>
           <div class="hero-actions">
             <button class="btn btn-primary" type="button" data-add>
@@ -209,8 +194,6 @@ function homeView() {
             <a class="btn btn-ghost" href="/cart" data-link>عرض السلة</a>
           </div>
           <div class="hero-trust">
-            <span class="free-pill">${icons.truck} توصيل مجاني</span>
-            <span class="free-pill">${icons.clock} الوصول خلال ${SITE.deliveryTime}</span>
             <span class="free-pill">${icons.shield} منتجات مطابقة للمواصفات</span>
           </div>
         </div>
@@ -243,18 +226,13 @@ function homeView() {
         </div>
         <div class="feature reveal" data-delay="80">
           <span class="feature-icon">${icons.truck}</span>
-          <h3>توصيل مجاني</h3>
-          <p>نجهز الطلب ونوصله إلى باب بيتك دون رسوم إضافية.</p>
+          <h3>سهولة الطلب</h3>
+          <p>أرسل طلبك وسنتواصل معك لتأكيده.</p>
         </div>
         <div class="feature reveal" data-delay="160">
           <span class="feature-icon">${icons.shield}</span>
           <h3>جودة مضمونة</h3>
           <p>منتجات مطابقة للمواصفات، وإن وصلك خلل نستبدله أو نعيد المبلغ.</p>
-        </div>
-        <div class="feature reveal" data-delay="240">
-          <span class="feature-icon">${icons.clock}</span>
-          <h3>وصول سريع</h3>
-          <p>يصلك الطلب خلال ${SITE.deliveryTime} من تأكيده.</p>
         </div>
       </div>
     </section>
@@ -312,12 +290,7 @@ function homeView() {
           <li class="reveal" data-delay="180">
             <span class="step-number">${n(3)}</span>
             <h3>تأكيد الطلب</h3>
-            <p>نرسل لك تأكيداً عبر واتساب للتحقق من العنوان والموعد قبل التوصيل.</p>
-          </li>
-          <li class="reveal" data-delay="270">
-            <span class="step-number">${n(4)}</span>
-            <h3>استلم في البيت</h3>
-            <p>يصلك الطلب خلال ${SITE.deliveryTime} بعد التأكيد.</p>
+            <p>سنتصل بك لتأكيد الطلب.</p>
           </li>
         </ol>
       </div>
@@ -327,7 +300,7 @@ function homeView() {
       <div class="container closing-inner reveal">
         <div>
           <h2>الكمية محدودة، اطلب الآن واستفيد من العرض.</h2>
-          <p>التوصيل مجاني داخل ${SITE.city}، والوصول خلال ${SITE.deliveryTime}.</p>
+          <p>أرسل طلبك وسنتواصل معك لتأكيده.</p>
         </div>
         <button class="btn btn-light" type="button" data-add>
           أضف العرض إلى السلة ${icons.arrow}
@@ -365,11 +338,9 @@ function cartView() {
         <div class="surface confirmation" role="status" aria-live="polite">
           <span class="confirmation-icon">${icons.check}</span>
           <span class="section-kicker">${SITE.brand} · ${SITE.city}</span>
-          <h2>طلبك جاهز للإرسال</h2>
-          <p class="delivery-estimate">${icons.truck} اضغط زر واتساب لإرسال الطلب إلينا. بعد استلامنا له نؤكده لك ونحدد موعد التوصيل خلال ${SITE.deliveryTime}.</p>
-          <p class="confirmation-order">عرض ${SITE.brand} — ${money(PRODUCT.price * state.count)}، والتوصيل مجانا.</p>
-          <a class="btn btn-primary" href="${whatsappOrderLink()}" target="_blank" rel="noopener">${icons.phone} إرسال الطلب على واتساب</a>
-          <p class="confirmation-disclaimer">لم يصلنا طلبك بعد. يصل إلينا بعد إرساله على واتساب، أو يمكنك الاتصال بنا على <span dir="ltr">${SITE.phone}</span>.</p>
+          <h2>طلبك قيد المعالجة</h2>
+          <p class="delivery-estimate">سيتم الاتصال بك لتأكيد الطلب.</p>
+          <p class="confirmation-order">قيمة الطلب: ${money(PRODUCT.price * state.count)}.</p>
           <a class="btn btn-ghost" href="/" data-link>العودة إلى الصفحة الرئيسية ${icons.arrow}</a>
         </div>
       </section>`;
@@ -406,7 +377,6 @@ function cartView() {
           </div>
           <div class="summary">
             <div class="summary-row"><span>قيمة العرض</span><span>${money(subtotal)}</span></div>
-            <div class="summary-row"><span>التوصيل</span><span class="delivery-free">مجانا</span></div>
             <div class="summary-row total"><span>المجموع</span><span>${money(subtotal)}</span></div>
           </div>
         </div>
@@ -527,7 +497,6 @@ function bindCartView() {
     const field = event.target.name;
     if (!field) return;
     state.address[field] = event.target.value;
-    writeStore(KEYS.address, state.address);
   });
   form?.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -597,21 +566,6 @@ function normalizePhone(input) {
     .replace(/\D/g, "");
 }
 
-function whatsappOrderLink() {
-  const { address } = state;
-  const subtotal = money(PRODUCT.price * state.count);
-  const lines = [
-    `طلب جديد من موقع ${SITE.brand}`,
-    `العرض: ${PRODUCT.title}`,
-    `الكمية: ${n(state.count)}`,
-    `الإجمالي: ${subtotal} (التوصيل مجانا)`,
-    address.name ? `الاسم: ${address.name}` : "",
-    `الجوال: ${address.phone}`,
-    address.city ? `المدينة: ${address.city}` : "",
-    `العنوان: ${address.details}`,
-  ].filter(Boolean);
-  return `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(lines.join("\n"))}`;
-}
 
 function submitOrder() {
   if (!state.count) {
@@ -641,7 +595,8 @@ function submitOrder() {
 function boot() {
   const storedCart = readStore(KEYS.cart, { count: 0 });
   state.count = Number(storedCart.count) || 0;
-  state.address = readStore(KEYS.address, { ...EMPTY_ADDRESS });
+  state.address = { ...EMPTY_ADDRESS };
+  try { localStorage.removeItem("national-poultry-address"); } catch { /* التخزين غير متاح */ }
   state.location = window.location.pathname;
 
   buildShell();
