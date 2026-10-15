@@ -1,7 +1,7 @@
 // دواجن الوطنية — واجهة المتجر
 const PRODUCT = {
   price: 50,
-  title: "عرض دواجن الوطنية بـ 50 ريالا",
+  title: "عرض دواجن الوطنية بـ 50 ريال",
   short: "دجاج طازج، صدور دجاج، وأرز بسمتي فاخر",
   image: "/assets/product-box-720.jpg",
   imageSmall: "/assets/product-box-420.jpg",
@@ -87,9 +87,6 @@ const productImg = (cls, loading) => `
 function topbar() {
   const notes = [
     "عرض محلي مميز",
-    "التوصيل إلى باب البيت مجاناً",
-    "دجاج طازج يومياً",
-    "الدفع عند الاستلام",
   ];
   return `
     <div class="topbar">
@@ -116,7 +113,6 @@ function header() {
           <a href="/#how">التوصيل</a>
         </nav>
         <div class="header-actions">
-          <span class="free-pill">${icons.truck}<span>توصيل مجاني</span></span>
           <a class="cart-btn" href="/cart" data-link aria-label="السلة">
             ${icons.cart}
             <span>السلة</span>
@@ -132,7 +128,6 @@ function mobileBar() {
     <div class="mobile-bar" data-mobile-bar>
       <div class="mobile-bar-price">
         <span class="mobile-bar-number">50</span>
-        <span class="mobile-bar-unit">ريال سعودي<small>التوصيل مجانا</small></span>
       </div>
       <button class="btn btn-primary" type="button" data-add>أضف إلى السلة ${icons.arrow}</button>
     </div>`;
@@ -149,11 +144,7 @@ function footer() {
             <span>المملكة العربية السعودية</span>
           </div>
         </div>
-        <p class="footer-tag">عرض واضح، ومكونات مختارة بعناية</p>
         <div class="footer-notes">
-          <span>${icons.truck} توصيل مجاني داخل السعودية</span>
-          <span>${icons.shield} جودة مضمونة</span>
-          <span>${icons.clock} توصيل خلال 1 يوم عمل</span>
         </div>
       </div>
     </footer>`;
@@ -166,11 +157,10 @@ function homeView() {
         <div class="hero-copy reveal">
           <span class="eyebrow">${icons.spark} عرض مميز من دواجن الوطنية</span>
           <h1>عرض دواجن الوطنية بـ <span class="ink">50 ريالا</span></h1>
-          <p class="hero-intro">تجميعة البيت التي تحبونها، بسعر يعرفه الجميع.</p>
+          <p class="hero-intro">تجميعة البيت التي تحبونها،   .</p>
           <ul class="hero-points">
             <li>${icons.check} دجاج طازج وصدور دجاج</li>
             <li>${icons.check} أرز بسمتي فاخر</li>
-            <li>${icons.check} التوصيل إلى باب البيت مجاناً</li>
           </ul>
           <div class="hero-actions">
             <button class="btn btn-primary" type="button" data-add>
@@ -179,15 +169,12 @@ function homeView() {
             <a class="btn btn-ghost" href="/cart" data-link>عرض السلة</a>
           </div>
           <div class="hero-trust">
-            <span>${icons.shield} جودة مضمونة</span>
-            <span>${icons.clock} توصيل خلال 1 يوم عمل</span>
           </div>
         </div>
         <div class="hero-art reveal" data-delay="120">
           <div class="hero-media">
             ${productImg("", "eager")}
             <span class="badge badge-price">50 <small>ريال</small></span>
-            <span class="badge badge-delivery">${icons.truck} توصيل مجاني</span>
           </div>
           <div class="price-card">
             <div class="price-now">
@@ -195,7 +182,6 @@ function homeView() {
               <span class="price-unit">ريال سعودي</span>
             </div>
             <div class="price-note">
-              <span class="free-delivery">والتوصيل مجانا</span>
               <span class="price-ref">قيمة العرض كاملة</span>
             </div>
             <button class="btn btn-primary btn-block" type="button" data-add>
@@ -215,18 +201,12 @@ function homeView() {
         </div>
         <div class="feature reveal" data-delay="80">
           <span class="feature-icon">${icons.truck}</span>
-          <h3>توصيل مجاني</h3>
-          <p>التوصيل إلى باب البيت مجاناً داخل السعودية.</p>
         </div>
         <div class="feature reveal" data-delay="160">
           <span class="feature-icon">${icons.shield}</span>
-          <h3>عرض واضح</h3>
-          <p>سعر واحد لكل البوكس بلا تكاليف إضافية.</p>
         </div>
         <div class="feature reveal" data-delay="240">
           <span class="feature-icon">${icons.clock}</span>
-          <h3>طلب سريع</h3>
-          <p>خطوة واحدة لإضافة العرض ثم كتابة العنوان.</p>
         </div>
       </div>
     </section>
@@ -236,7 +216,6 @@ function homeView() {
         <div class="section-head reveal">
           <span class="section-kicker">محتويات العرض</span>
           <h2>كل ما تحتاجه على مائدة البيت</h2>
-          <p>دجاج طازج وصدور دجاج وأرز بسمتي فاخر، بسعر 50 ريالا سعوديا والتوصيل مجانا.</p>
         </div>
         <div class="contents-grid">
           <div class="contents-media reveal">
@@ -285,7 +264,6 @@ function homeView() {
           <li class="reveal" data-delay="180">
             <span class="step-number">${n(3)}</span>
             <h3>استلم في البيت</h3>
-            <p>التوصيل مجانا خلال 1 يوم عمل بإذن الله.</p>
           </li>
         </ol>
       </div>
@@ -295,7 +273,6 @@ function homeView() {
       <div class="container closing-inner reveal">
         <div>
           <h2>الكمية محدودة، اطلب الآن واستفيد من العرض.</h2>
-          <p>عرض دواجن الوطنية — 50 ريال سعودي، والتوصيل مجانا.</p>
         </div>
         <button class="btn btn-light" type="button" data-add>
           أضف العرض إلى السلة ${icons.arrow}
@@ -401,7 +378,6 @@ function cartView() {
             </div>
             ${state.error ? `<p class="form-error" role="alert">${state.error}</p>` : ""}
             <button class="btn btn-primary btn-block submit-order" type="submit">${icons.check} إرسال الطلب</button>
-            <p class="form-note">التوصيل مجانا. البيانات محفوظة على هذا الجهاز، ولا تصل إلى المتجر في الوقت الحالي.</p>
           </form>
         </div>
       </div>
