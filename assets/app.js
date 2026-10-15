@@ -77,7 +77,7 @@ const productImg = (cls, loading) => `
     srcset="${PRODUCT.imageSmall} 420w, ${PRODUCT.image} 720w"
     sizes="(max-width: 640px) 92vw, (max-width: 1024px) 70vw, 46vw"
     alt="${PRODUCT.imageAlt}"
-    width="720" height="1280"
+    width="720" height="1080"
     loading="${loading || "lazy"}"
     decoding="async"
     fetchpriority="${loading === "eager" ? "high" : "auto"}"

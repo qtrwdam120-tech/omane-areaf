@@ -455,6 +455,9 @@ svg {
 /* --------------------------------- hero art ------------------------------- */
 .hero-art {
   position: relative;
+  max-width: 470px;
+  margin-inline: auto;
+  width: 100%;
 }
 
 .hero-media {
@@ -463,7 +466,7 @@ svg {
   overflow: hidden;
   box-shadow: var(--shadow-lg);
   background: var(--green-100);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 2 / 3;
 }
 
 .hero-media img {
@@ -662,7 +665,7 @@ svg {
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 2 / 3;
   background: var(--green-100);
 }
 
@@ -1283,7 +1286,8 @@ svg {
   }
 
   .contents-media {
-    aspect-ratio: 16 / 10;
+    max-width: 420px;
+    margin-inline: auto;
   }
 }
 
@@ -1383,7 +1387,7 @@ svg {
   }
 
   .hero-media {
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 2 / 3;
     border-radius: var(--radius-lg);
   }
 
