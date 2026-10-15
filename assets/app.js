@@ -11,7 +11,7 @@ const SITE = {
   city: "الرياض",
   phone: "+966593203502",
   whatsapp: "966593203502",
-  email: "info@example.com",
+  email: "watneyanewofold@gmail.com",
   cr: "1025148421",
   vat: "",
   address: "الرياض، المملكة العربية السعودية",
